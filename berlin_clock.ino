@@ -1,4 +1,8 @@
 #include <Metro.h> // Include the Metro library
+#include <TimeLib.h> // Include Time library.
+
+Metro serialMetro = Metro(1000);
+time_t currentTime;
 
 /**
  * Auto invoked setup function.
@@ -25,11 +29,25 @@ void setup()   {
  */
 void loop()
 {
-    powerAllLights(true);
+    ticTac();
+    /*
+    // powerAllLights(true);
     delay(1000);
-    powerAllLights(false);
+    // powerAllLights(false);
     delay(1000);
-    Serial.println("Iteration…");
+    */
+    //Serial.println("Iteration…");
+}
+
+void ticTac() {
+
+    // Check if one second is passed.
+    if (serialMetro.check() == 1) {
+        Serial.print(currentTime);
+        Serial.print("\n");
+        Serial.print("Iteration…");
+        Serial.print("\n");
+    }
 }
 
 /**
@@ -71,7 +89,7 @@ void initLedsOutput() {
  */
 void powerAllLights(boolean power) {
     int i;
-    for (i = 0; i <= 9; i++) {
+    for (i = 1; i <= 9; i++) {
         if (power == true) {
             digitalWrite(i, HIGH);
         } else {
