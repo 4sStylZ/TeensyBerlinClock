@@ -2,51 +2,25 @@
 
 void setup()   {
 
+    // Start the serial monitoring for debug purpose.
     Serial.begin(38400);
+
+    // Blink some flash just for see if the device is started even
+    // if the serial monitoring is not set-up.
     startWithSomeFlash();
 
     // initialize the digitals pin as an outputs
-    pinMode(0, OUTPUT);
-    pinMode(1, OUTPUT);
-    pinMode(2, OUTPUT);
-    pinMode(3, OUTPUT);
-    pinMode(4, OUTPUT);
-    pinMode(5, OUTPUT);
-    pinMode(6, OUTPUT);
-    pinMode(7, OUTPUT);
-    pinMode(8, OUTPUT);
-    pinMode(9, OUTPUT);
+    initLedsOutput();
 }
-
 
 // the loop() method runs over and over again,
 void loop()
 {
-    allHigh();
+    powerAllLights(true);
     delay(1000);
-    allLow();
+    powerAllLights(false);
     delay(1000);
     Serial.println("Iteration…");
-}
-
-/**
- * Blink off or blink on all the leds.
- *
- * @return {[type]} [description]
- */
-void allHigh() {
-    int i;
-    for (i = 0; i <= 9; i++) {
-       digitalWrite(i, HIGH);
-    }
-}
-
-
-void allLow() {
-    int i;
-    for (i = 0; i <= 9; i++) {
-        digitalWrite(i, LOW);
-    }
 }
 
 void startWithSomeFlash() {
@@ -60,5 +34,30 @@ void startWithSomeFlash() {
         delay(200);
         digitalWrite(13, LOW);
         delay(200);
+    }
+}
+
+void initLedsOutput() {
+    for (int i = 0; i <= 9; i++) {
+        pinMode(i, OUTPUT);
+    }
+}
+
+/**
+ * Blink off or blink on all the leds.
+ *
+ * @param boolean power HIGH or LOW
+ *
+ * @return void
+ */
+void powerAllLights(boolean power) {
+    int i;
+    for (i = 0; i <= 9; i++) {
+        if (power == true) {
+            digitalWrite(i, HIGH);
+        } else {
+            digitalWrite(i, LOW);
+        }
+
     }
 }
