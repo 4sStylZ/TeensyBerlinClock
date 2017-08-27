@@ -1,5 +1,10 @@
 #include <Metro.h> // Include the Metro library
 
+/**
+ * Auto invoked setup function.
+ *
+ * @return {void}
+ */
 void setup()   {
 
     // Start the serial monitoring for debug purpose.
@@ -13,7 +18,11 @@ void setup()   {
     initLedsOutput();
 }
 
-// the loop() method runs over and over again,
+/**
+ * the loop() method runs over and over again
+ *
+ * @return {void}
+ */
 void loop()
 {
     powerAllLights(true);
@@ -23,6 +32,11 @@ void loop()
     Serial.println("Iteration…");
 }
 
+/**
+ * Print some flash when the device start.
+ *
+ * @return {[type]} [description]
+ */
 void startWithSomeFlash() {
 
     Serial.println("Start Berlin clock");
@@ -37,6 +51,11 @@ void startWithSomeFlash() {
     }
 }
 
+/**
+ * Initialize all the leds output.
+ *
+ * @return {void}
+ */
 void initLedsOutput() {
     for (int i = 0; i <= 9; i++) {
         pinMode(i, OUTPUT);
