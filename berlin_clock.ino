@@ -18,6 +18,8 @@ void setup()   {
     // if the serial monitoring is not set-up.
     startWithSomeFlash();
 
+    setTime(8,29,0,1,1,11); // set time to Saturday 8:29:00am Jan 1 2011
+
     // initialize the digitals pin as an outputs
     initLedsOutput();
 }
@@ -30,21 +32,16 @@ void setup()   {
 void loop()
 {
     ticTac();
-    /*
-    // powerAllLights(true);
-    delay(1000);
-    // powerAllLights(false);
-    delay(1000);
-    */
-    //Serial.println("Iteration…");
 }
 
 void ticTac() {
 
     // Check if one second is passed.
     if (serialMetro.check() == 1) {
-        Serial.print(currentTime);
-        Serial.print("\n");
+        Serial.print(hour());
+        printDigits(minute());
+        printDigits(second());
+        Serial.println();
         Serial.print("Iteration…");
         Serial.print("\n");
     }
@@ -96,5 +93,20 @@ void powerAllLights(boolean power) {
             digitalWrite(i, LOW);
         }
 
+    }
+}
+
+/**
+ * Prints two digits even if the parameter have only one caractere…
+ *
+ * @param {[type]} int digits [description]
+ *
+ * @return {[type]} [description]
+ */
+void printDigits(int digits) {
+    Serial.print(":");
+    if (digits < 10) {
+        Serial.print('0');
+        Serial.print(digits);
     }
 }
