@@ -14,14 +14,16 @@ void setup()   {
     // Start the serial monitoring for debug purpose.
     Serial.begin(38400);
 
+    // Initialize the digitals pin as an outputs
+    initLedsOutput();
+
     // Blink some flash just for see if the device is started even
     // if the serial monitoring is not set-up.
     startWithSomeFlash();
 
-    setTime(8,29,0,1,1,11); // set time to Saturday 8:29:00am Jan 1 2011
+    // set time to Saturday 8:29:00am Jan 1 2011.
+    setTime(8,29,0,1,1,11);
 
-    // initialize the digitals pin as an outputs
-    initLedsOutput();
 }
 
 /**
@@ -42,8 +44,52 @@ void ticTac() {
         printDigits(minute());
         printDigits(second());
         Serial.println();
-        Serial.print("Iteration…");
-        Serial.print("\n");
+
+        displaySecond();
+        displayHours();
+        // displayHour();
+        // displayMinuteFirstRow();
+
+    }
+}
+
+void displayHours() {
+    for (int i = 1; i <= 4; i++) {
+        if (hour()%5) {
+            digitalWrite(i, HIGH);
+        } else {
+            digitalWrite(i, LOW);
+        }
+    }
+}
+
+void displayHour() {
+    for (int i = 1; i <= 4; i++) {
+        if (hour()%5) {
+            digitalWrite(i + 4, HIGH);
+        } else {
+            digitalWrite(i + 4, LOW);
+        }
+    }
+}
+
+
+
+void displaySecond() {
+    if (second()%2) {
+        digitalWrite(0, HIGH);
+    } else {
+        digitalWrite(0, LOW);
+    }
+}
+
+void displayMinuteFirstRow() {
+    for (int i = 1; i <= 4; i++) {
+        if (minute()%5) {
+            digitalWrite(i + 1, HIGH);
+        } else {
+            digitalWrite(i + 1, LOW);
+        }
     }
 }
 
@@ -55,14 +101,11 @@ void ticTac() {
 void startWithSomeFlash() {
 
     Serial.println("Start Berlin clock");
-
-    // 3 flash with the Teensy led.
-    pinMode(13, OUTPUT);
     for (int i = 0; i <= 3; i++) {
-        digitalWrite(13, HIGH);
-        delay(200);
-        digitalWrite(13, LOW);
-        delay(200);
+        powerAllLights(true);
+        delay(100);
+        powerAllLights(false);
+        delay(100);
     }
 }
 
@@ -72,7 +115,7 @@ void startWithSomeFlash() {
  * @return {void}
  */
 void initLedsOutput() {
-    for (int i = 0; i <= 9; i++) {
+    for (int i = 0; i <= 24; i++) {
         pinMode(i, OUTPUT);
     }
 }
@@ -86,13 +129,12 @@ void initLedsOutput() {
  */
 void powerAllLights(boolean power) {
     int i;
-    for (i = 1; i <= 9; i++) {
+    for (i = 1; i <= 24; i++) {
         if (power == true) {
             digitalWrite(i, HIGH);
         } else {
             digitalWrite(i, LOW);
         }
-
     }
 }
 
@@ -107,6 +149,6 @@ void printDigits(int digits) {
     Serial.print(":");
     if (digits < 10) {
         Serial.print('0');
-        Serial.print(digits);
     }
+    Serial.print(digits);
 }
