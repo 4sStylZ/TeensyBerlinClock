@@ -65,12 +65,11 @@ void initializeTime() {
  * @return {void}
  */
 void setDailyScrumAlarm(int hours, int minutes, int seconds) {
-    Alarm.alarmRepeat(9,30,0, displayScrumAlarm);
-    // Alarm.alarmRepeat(dowMonday    , hours , minutes, seconds, displayScrumAlarm);
-    // Alarm.alarmRepeat(dowTuesday   , hours , minutes, seconds, displayScrumAlarm);
-    // Alarm.alarmRepeat(dowWednesday , hours , minutes, seconds, displayScrumAlarm);
-    // Alarm.alarmRepeat(dowThursday  , hours , minutes, seconds, displayScrumAlarm);
-    // Alarm.alarmRepeat(dowFriday    , hours , minutes, seconds, displayScrumAlarm);
+    Alarm.alarmRepeat(dowMonday    , hours , minutes, seconds, displayScrumAlarm);
+    Alarm.alarmRepeat(dowTuesday   , hours , minutes, seconds, displayScrumAlarm);
+    Alarm.alarmRepeat(dowWednesday , hours , minutes, seconds, displayScrumAlarm);
+    Alarm.alarmRepeat(dowThursday  , hours , minutes, seconds, displayScrumAlarm);
+    Alarm.alarmRepeat(dowFriday    , hours , minutes, seconds, displayScrumAlarm);
     Serial.println("Daily scrum setted");
 }
 
