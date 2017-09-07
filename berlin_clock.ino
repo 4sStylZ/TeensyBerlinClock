@@ -35,8 +35,9 @@ void setup()   {
 
     initializeTime();
 
-    // Declare the alamr each day except weekend days.
-    setDailyScrumAlarm(9, 30, 00);
+    // Declare the alarm each day except weekend days.
+    setAlarm( 9, 30, 00);
+    setAlarm(12, 30, 00);
 }
 
 /**
@@ -48,8 +49,8 @@ void initializeTime() {
 
     // Initialize time.
     setTime(
-         9, // Hours   (HH)
-        25, // Minutes (MM)
+        11, // Hours   (HH)
+        04, // Minutes (MM)
         00, // Seconds (SS)
         31, // Days    (DD)
          8, // Months  (MM)
@@ -64,25 +65,25 @@ void initializeTime() {
  *
  * @return {void}
  */
-void setDailyScrumAlarm(int hours, int minutes, int seconds) {
-    Alarm.alarmRepeat(dowMonday    , hours , minutes, seconds, displayScrumAlarm);
-    Alarm.alarmRepeat(dowTuesday   , hours , minutes, seconds, displayScrumAlarm);
-    Alarm.alarmRepeat(dowWednesday , hours , minutes, seconds, displayScrumAlarm);
-    Alarm.alarmRepeat(dowThursday  , hours , minutes, seconds, displayScrumAlarm);
-    Alarm.alarmRepeat(dowFriday    , hours , minutes, seconds, displayScrumAlarm);
-    Serial.println("Daily scrum setted");
+void setAlarm(int hours, int minutes, int seconds) {
+    Alarm.alarmRepeat(dowMonday    , hours , minutes, seconds, displayAlarm);
+    Alarm.alarmRepeat(dowTuesday   , hours , minutes, seconds, displayAlarm);
+    Alarm.alarmRepeat(dowWednesday , hours , minutes, seconds, displayAlarm);
+    Alarm.alarmRepeat(dowThursday  , hours , minutes, seconds, displayAlarm);
+    Alarm.alarmRepeat(dowFriday    , hours , minutes, seconds, displayAlarm);
+    Serial.println("Daily alarm setted");
 }
 
 /**
- * Display the Scrum alarm.
+ * Display the  alarm.
  *
  * (Method coded because alarmRepeat doesn’t accept method with
  * parameters).
  *
  * @return {void}
  */
-void displayScrumAlarm() {
-    Serial.println("Daily scrum setted");
+void displayAlarm() {
+    Serial.println("Daily setted");
     isAlarmOn = true;
     partyHard(20);
     isAlarmOn = false;
